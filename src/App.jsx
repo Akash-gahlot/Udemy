@@ -9,6 +9,7 @@ import Home from './components/Home';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import Addcourse from './components/Addcourse';
+import Allcourse from './components/AllCourse';
 import { userState } from './store/atoms/user';
 import axios from 'axios';
 
@@ -24,7 +25,8 @@ function App() {
             <Route path={'/'} element={<Home />} />
             <Route path={'/signup'} element={<Signup />} />
             <Route path={'/login'} element={<Login />} />
-            <Route  path={ '/addcourse'} element={ <Addcourse/>} />
+            <Route path={'/addcourse'} element={<Addcourse />} />
+            <Route path={'/allcourse'} element={ <Allcourse/>} />
         </Routes>
         </Router>
         </>
