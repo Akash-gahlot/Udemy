@@ -7,7 +7,6 @@ import { userEmail } from "../store/selectors/email";
 const Home = () => {
     const navigate = useNavigate();
     const email = useRecoilValue(userEmail);
-    console.log("email :" + email);
     if (email) { 
         return (
              <div style={{ padding: "20px", marginTop: "50px" }}>

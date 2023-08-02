@@ -37,16 +37,18 @@ function App() {
 
 function Init() {
   const setUser = useSetRecoilState(userState);
-  
-  const init = async () => {
-    try {
-      const response = await axios.get("http://localhost:3000/detial/me", {
+     var init = async () => {
+       try {
+      console.log("init request hit");
+      const response = await axios.get("http://localhost:3000/detail/me", {
         headers: {
           "Authorization": "Bearer " + localStorage.getItem("token")
         }
       })
     
-      if (response.ok) {
+      if (response.status==200) {
+        console.log("no error detail me");
+        console.log(response.data.email);
         setUser({
           isLoading: false,
           email: response.data.email,
@@ -67,6 +69,8 @@ function Init() {
       })
     }
   }
+  
+ 
   useEffect(() => {
       init();
     }, []);

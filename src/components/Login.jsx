@@ -17,8 +17,8 @@ const Login = () => {
             const response = await axios.post("http://localhost:3000/admin/login", {
             email:email,password:password
         })
-        if (response.status == 200) { 
-            localStorage.setItem("token", response.data);
+            if (response.status == 200) { 
+            localStorage.setItem("token", response.data.token);
             user({
                 isLoading: false,
                 email:email,
@@ -27,11 +27,19 @@ const Login = () => {
         }
             else { 
             console.log("error");
-            console.log(response.data);
+                console.log(response.data);
+                 user({
+                isLoading: false,
+                email:null,
+            })
         }
         }
         catch (err) {
             console.log("some error while sending request");
+             user({
+                isLoading: false,
+                email:null,
+            })
         }
         
     }

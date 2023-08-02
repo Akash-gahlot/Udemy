@@ -11,40 +11,48 @@ import { useNavigate } from 'react-router-dom';
 import { userEmail } from '../store/selectors/email';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { userState } from '../store/atoms/user';
+import { userloading } from '../store/selectors/loading';
+import Loading from './Loading';
 
 export default function ButtonAppBar() {
     const navigate = useNavigate();
     const setuser = useSetRecoilState(userState);
     const email = useRecoilValue(userEmail);
-    console.log("email navbar :" + email);
+    const loading=useRecoilValue(userloading);
+    if (loading) {
+        return (
+            <Loading/>
+        )
+     }
     if (email) {
         return (
-           <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-              <Toolbar>   
-            <Link to="/"  variant="h6" component="div" style={{ textDecoration: "none" , color :"white" ,flexGrow: 1 }}>
-            <Typography >
-            Udemy
-                  </Typography>
-                        </Link>     
-           <Typography>
-                      <h3>{ email}</h3>
-                  </Typography>
-                  <Button color="inherit" onClick={() => { 
+            <Box sx={{ flexGrow: 1 }}>
+                <AppBar position="static">
+                    <Toolbar>
+                        <Link to="/" variant="h6" component="div" style={{ textDecoration: "none", color: "white", flexGrow: 1 }}>
+                            <Typography >
+                                Udemy
+                            </Typography>
+                        </Link>
+                        <Typography>
+                            <h3>{email}</h3>
+                        </Typography>
+                        <Button color="inherit" onClick={() => {
                             localStorage.setItem("token", null);
                             setuser({
                                 isLoading: false,
-                                email:null
+                                email: null
                             })
-                      navigate("/");
-                  }}>Logout</Button>              
+                            navigate("/");
+                        }}>Logout</Button>
           
-        </Toolbar>
-      </AppBar>
-    </Box>  
+                    </Toolbar>
+                </AppBar>
+            </Box>
         )
     }
-  return (
+    else { 
+        return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
               <Toolbar>   
@@ -62,4 +70,6 @@ export default function ButtonAppBar() {
       </AppBar>
     </Box>
   );
+    }
+  
 }
